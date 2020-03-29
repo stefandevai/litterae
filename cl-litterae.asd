@@ -8,6 +8,7 @@
   :license "MIT"
   :version "0.0.0"
   :serial t
+  :depends-on (:docparser)
   :components ((:module "source"
                 :components
                 ((:file "package")
@@ -18,8 +19,8 @@
   :description "Test system for cl-litterae"
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
-  :depends-on (:cl-litterae :rove)
   :serial t
+  :depends-on (:cl-litterae :rove)
   :components ((:module "tests"
                 :components
                 ((:file "package")
