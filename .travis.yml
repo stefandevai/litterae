@@ -3,6 +3,9 @@ sudo: required
 notifications:
   email: false
 
+git:
+  clone: false
+
 os:
   - linux
   - osx
@@ -21,9 +24,11 @@ addons:
 
 # Install quicklisp
 install:
+  - git clone --branch=$TRAVIS_BRANCH https://github.com/stefandevai/cl-litterae ~/common-lisp/cl-litterae
+  - cd ~/common-lisp/cl-litterae
   - curl -o /tmp/ql.lisp http://beta.quicklisp.org/quicklisp.lisp
-  - sbcl --no-sysinit --no-userinit --load /tmp/ql.lisp --eval '(quicklisp-quickstart:install)' --quit
-  - echo '(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname)))) (when (probe-file quicklisp-init) (load quicklisp-init)))' >> ~/.sbclrc
+  - sbcl --no-sysinit --no-userinit --load /tmp/ql.lisp --eval '(quicklisp-quickstart:install :path "~/.quicklisp")' --quit
+  - echo '(let ((quicklisp-init (merge-pathnames ".quicklisp/setup.lisp" (user-homedir-pathname)))) (when (probe-file quicklisp-init) (load quicklisp-init)))' >> ~/.sbclrc
 
 script:
-  ./run-tests.lisp
+  sbcl --script run-tests.lisp
