@@ -1,0 +1,29 @@
+language: lisp
+sudo: required
+notifications:
+  email: false
+
+os:
+  - linux
+  - osx
+
+addons:
+  apt:
+    update: true
+    cache: true
+    packages:
+      - sbcl
+  homebrew:
+    update: true
+    cache: true
+    packages:
+      - sbcl
+
+# Install quicklisp
+install:
+  - curl -o /tmp/ql.lisp http://beta.quicklisp.org/quicklisp.lisp
+  - sbcl --no-sysinit --no-userinit --load /tmp/ql.lisp --eval '(quicklisp-quickstart:install)' --quit
+  - echo '(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname)))) (when (probe-file quicklisp-init) (load quicklisp-init)))' >> ~/.sbclrc
+
+script:
+  ./run-tests.lisp
