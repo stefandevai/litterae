@@ -6,7 +6,7 @@
   :description "Beautiful documentation generation."
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
-  :version "0.0.0"
+  :version "0.0.1"
   :depends-on (:docparser :lsx :markdown.cl)
   :components ((:module "source"
                 :components
