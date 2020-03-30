@@ -4,10 +4,12 @@
 
 (in-package #:litterae)
 
+(lsx:enable-lsx-syntax)
+
 (defparameter *index* nil)
 (defparameter *symbols* (make-hash-table))
 
-(defun generate (system-name)
+(defun generate (system-name &key (path #P"doc/"))
   "Generates static HTML documentation for a `system-name'."
   (assert (symbolp system-name))
 
@@ -16,8 +18,12 @@
     (setf *index* (docparser:parse system-name)))
   
   (build-symbols-hash)
-  (generate-html))
-  
+  (generate-html path))
+
+(defun g (system-name &key (path #P"doc/"))
+  "Generates static HTML documentation for a `system-name'."
+  (generate system-name :path path))
+
 (defun build-symbols-hash ()
   "Stores in `*symbols*' a hash of hashes of lists: a hash of package names, which each value contains a hash of class names which, each value contains a list of node names."
   
@@ -40,24 +46,40 @@
                                               (docparser:node-name node2)))))
         (setf (gethash package *symbols*) package-hash))))
 
-(defun generate-html ()
+(defun generate-html (path)
   "Generates HTML for the contents of a parsed system in `*symbols*'."
-  (with-package-hashes
+  (ensure-directories-exist path)
+  (generate-html-index path)
+  (do-package-hashes
     (format t "PACKAGE: ~(~a~)~%" (docparser:package-index-name package))
-    (with-node-lists package-hash
+    (do-node-lists package-hash
       (format t "  NODE TYPE: ~(~a~)~%" node-type)
-      (mapcar (lambda (node) (format t "    ~(~a~)~%"
-                                     (docparser:node-name node)))
+      (mapcar (lambda (node) (format t "    ~(~a~): ~a~%"
+                                     (docparser:node-name node)
+                                     (class-of node)))
               node-list)
       (format t "~%"))))
 
-(defmacro with-package-hashes (&body body)
+(defun generate-html-index (path)
+  "Generates index.html in `path'."
+  (with-open-file (stream (merge-pathnames #P"index.html" path)
+                          :direction :output
+                          :if-exists :supersede
+                          :if-does-not-exist :create)
+    (lsx:render-object (make-instance 'index-template
+                                      :title "TEX"
+                                      :description "Testando"
+                                      :url "https://stedevai.com"
+                                      :body "Newing")
+                       stream)))
+
+(defmacro do-package-hashes (&body body)
   "Iterates through the package hashes in `*index*'"
   `(loop :for package :being :the :hash-keys :of *symbols*
            :using (:hash-value package-hash)
          :do (progn ,@body)))
 
-(defmacro with-node-lists (package-hash &body body)
+(defmacro do-node-lists (package-hash &body body)
   `(loop :for node-type :being :the :hash-keys :of ,package-hash
            :using (:hash-value node-list)
          :do (progn ,@body)))

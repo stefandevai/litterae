@@ -8,11 +8,15 @@
   :license "MIT"
   :version "0.0.0"
   :serial t
-  :depends-on (:docparser)
+  :depends-on (:docparser :lsx)
   :components ((:module "source"
                 :components
                 ((:file "package")
-                 (:file "main"))))
+                 (:file "main")))
+               (:module "source/templates"
+                :components
+                ((:file "index"))))
+  
   :in-order-to ((test-op (test-op :cl-litterae/tests))))
 
 (asdf:defsystem #:cl-litterae/tests
