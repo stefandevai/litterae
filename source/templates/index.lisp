@@ -1,5 +1,8 @@
 (in-package :litterae)
 
+(eval-when (:compile-toplevel)
+  (lsx:enable-lsx-syntax))
+
 (defun has-attr? (attr)
   "Return true if the attribute `attr' holds a value, false otherwise."
   (not-empty? (funcall attr)))

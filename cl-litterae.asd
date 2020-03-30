@@ -7,17 +7,13 @@
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
   :version "0.0.0"
-  :serial t
-  :depends-on (:docparser :lsx)
+  :depends-on (:docparser :lsx :markdown.cl)
   :components ((:module "source"
                 :components
                 ((:file "package")
-                 (:file "string")
-                 (:file "main")))
-               
-               (:module "source/templates"
-                :components
-                ((:file "index"))))
+                 (:file "string" :depends-on ("package"))
+                 (:file "templates/index" :depends-on ("string"))
+                 (:file "main" :depends-on ("templates/index")))))
   
   :in-order-to ((test-op (test-op :cl-litterae/tests))))
 

@@ -4,6 +4,9 @@
 
 (in-package #:litterae)
 
+;; (eval-when (:compile-toplevel)
+;;   (lsx:enable-lsx-syntax))
+
 (defun empty? (string)
   "Return t if `string' is empty or nil, return nil otherwise."
   (zerop (length string)))

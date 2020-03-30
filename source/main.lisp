@@ -4,9 +4,8 @@
 
 (in-package #:litterae)
 
-(rename-package :docparser :docparser '(dp))
-
-(lsx:enable-lsx-syntax)
+(eval-when (:compile-toplevel)
+  (lsx:enable-lsx-syntax))
 
 (defparameter *index* nil)
 (defparameter *system-name* nil)
@@ -16,12 +15,13 @@
 (defun generate (system-name &key (path #P"doc/"))
   "Generates static HTML documentation for a `system-name'."
   (assert (symbolp system-name))
+  (ql:quickload system-name)
   (setf *system-name* system-name)
   (setf *asdf-system* (asdf:find-system *system-name*))
 
   ;; Create *index* hash and silence output from docparser
   (with-open-stream (*standard-output* (make-broadcast-stream))
-    (setf *index* (dp:parse system-name)))
+    (setf *index* (docparser:parse system-name)))
   
   (build-symbols-hash)
   (generate-html path))
@@ -34,10 +34,10 @@
   "Stores in `*symbols*' a hash of hashes of lists: a hash of package names, which each value contains a hash of class names which, each value contains a list of node names."
   (setf *symbols* (make-hash-table))
 
-  (dp:do-packages (package *index*)
+  (docparser:do-packages (pkg *index*)
       ;; Add symbol names entries
-      (let ((package-hash (or (gethash package *symbols*) (make-hash-table))))
-        (dp:do-nodes (node package)
+      (let ((package-hash (or (gethash pkg *symbols*) (make-hash-table))))
+        (docparser:do-nodes (node pkg)
           (push node
                 (gethash (class-name (class-of node))
                          package-hash)))
@@ -45,9 +45,9 @@
         ;; Sort symbol name list
         (loop :for value :being :the :hash-values :of package-hash
               :do (sort value (lambda (node1 node2)
-                                (string-lessp (dp:node-name node1)
-                                              (dp:node-name node2)))))
-        (setf (gethash package *symbols*) package-hash))))
+                                (string-lessp (docparser:node-name node1)
+                                              (docparser:node-name node2)))))
+        (setf (gethash pkg *symbols*) package-hash))))
 
 (defun generate-html (path)
   "Generates HTML for the contents of a parsed system in `*symbols*'."
@@ -101,8 +101,8 @@
       <ul>
         {(generate-list
           :child-list? t
-          :elements (do-package-hashes
-            (list (dp:package-index-name package)
+          :elements (do-package-hashes (pkg package-hash)
+            (list (docparser:package-index-name pkg)
                   (generate-list
                    :child-list? t
                    :element-format "~:(~a~)"
@@ -110,7 +110,7 @@
                                (list (get-node-type-string node-type :plural? t)
                                      (generate-list
                                       :child-list? nil
-                                      :elements (mapcar (lambda (node) (dp:node-name node))
+                                      :elements (mapcar (lambda (node) (docparser:node-name node))
                                                         node-list))))))))}
       </ul>
   </nav>
@@ -147,17 +147,17 @@ The type can be either :ul or :ol."
 
 (defun get-node-type-string (node-type &key (plural? nil))
   (case node-type
-    (dp:variable-node (if plural? "variables" "variable"))
-    (dp:class-node    (if plural? "classes"   "class"))
-    (dp:method-node   (if plural? "methods"   "method"))
-    (dp:macro-node    (if plural? "macros"    "macro"))
-    (dp:function-node (if plural? "functions" "function"))
+    (docparser:variable-node (if plural? "variables" "variable"))
+    (docparser:class-node    (if plural? "classes"   "class"))
+    (docparser:method-node   (if plural? "methods"   "method"))
+    (docparser:macro-node    (if plural? "macros"    "macro"))
+    (docparser:function-node (if plural? "functions" "function"))
     (otherwise (format nil "~(~a~)" node-type))))
 
-(defmacro do-package-hashes (&body body)
+(defmacro do-package-hashes ((pkg package-hash) &body body)
   "Iterates through the package hashes in `*index*'"
-  `(loop :for package :being :the :hash-keys :of *symbols*
-           :using (:hash-value package-hash)
+  `(loop :for ,pkg :being :the :hash-keys :of *symbols*
+           :using (:hash-value ,package-hash)
          :collect (progn ,@body)))
 
 (defmacro do-node-lists (package-hash &body body)
