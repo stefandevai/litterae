@@ -9,10 +9,11 @@
                            (url nil))
   <head>
     <meta charset="utf-8" />
-    <title>{(concatenate 'string title " |")} Documentation</title>
+    <title>{(concatenate 'string (funcall title) " |")} Documentation</title>
     {(and (has-attr? description) <meta name="description" content={description} />)}
     
-    <meta name="og:title" property="og:title" content={title} />
+    <meta name="og:title" property="og:title" content={(concat-as-string (funcall title)
+                                                                         " | Documentation")} />
     <meta property="og:type" content="website" />
     {(and (has-attr? description) <meta name="og:description" content={description} />)}
     
@@ -28,7 +29,7 @@
   
   (:render
 <html lang={lang}>
-  <seo-head title="Tex" description={description} url={url} />
+  <seo-head title={title} description={description} url={url} />
   <body>
     {body}
   </body>
