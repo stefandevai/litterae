@@ -86,19 +86,32 @@
   "Generates the body content for the index page."
     <nav>
       <ul>
-  {(mapcar (lambda (package-symbols) <li>PACKAGE <ul>{package-symbols}</ul></li>)
-           (do-package-hashes
-             (mapcar (lambda (node-list) <li>TYPE <ul>{node-list}</ul></li>)
-                     (do-node-lists package-hash
-                       (mapcar (lambda (node) <li>{(format nil "~(~a~)" (docparser:node-name node))}</li>)
-                               node-list)))))}
+        {(generate-line-list
+          :child-list? t
+          :elements (do-package-hashes
+            (list (docparser:package-index-name package)
+                  (generate-line-list
+                   :child-list? t
+                   :elements (do-node-lists package-hash
+                               (list (format nil "~(~a~)" node-type)
+;                                     (generate-line-list
+;                                      :child-list? nil
+;                                      :elements node-list)))))))
+                                  (mapcar (lambda (node) <li>{(format nil "~(~a~)" node)}</li>)
+                                          node-list)))))))}
+;;                                  (mapcar (lambda (node) <li>{(format nil "~(~a~)" (docparser:node-name node))}</li>)
+;;                                          node-list)))))))}
       </ul>
   </nav>)
 
-(defun generate-list (elements)
-  "Generate a list of each element in `element' surrounded by the <li> tag."
-  (mapcar (lambda (e) <li>{e}</li>)
-          elements))
+(defun generate-line-list (&key elements (child-list? nil) (element-format "~(~a~)"))
+  "Generate a list with `elements' and surrounds it with a <li> tag with `title'.
+The type can be either :ul or :ol."
+  (if child-list? 
+      (mapcar (lambda (e) <li>{(format nil element-format (car e))} <ul>{(cdr e)}</ul></li>)
+              elements)
+      (mapcar (lambda (e) <li>{e}</li>)
+              elements)))
 
 (defmacro do-package-hashes (&body body)
   "Iterates through the package hashes in `*index*'"
