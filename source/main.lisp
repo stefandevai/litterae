@@ -4,6 +4,8 @@
 
 (in-package #:litterae)
 
+(rename-package :docparser :docparser '(dp))
+
 (lsx:enable-lsx-syntax)
 
 (defparameter *index* nil)
@@ -19,7 +21,7 @@
 
   ;; Create *index* hash and silence output from docparser
   (with-open-stream (*standard-output* (make-broadcast-stream))
-    (setf *index* (docparser:parse system-name)))
+    (setf *index* (dp:parse system-name)))
   
   (build-symbols-hash)
   (generate-html path))
@@ -32,11 +34,10 @@
   "Stores in `*symbols*' a hash of hashes of lists: a hash of package names, which each value contains a hash of class names which, each value contains a list of node names."
   (setf *symbols* (make-hash-table))
 
-  (docparser:do-packages (package *index*)
+  (dp:do-packages (package *index*)
       ;; Add symbol names entries
       (let ((package-hash (or (gethash package *symbols*) (make-hash-table))))
-        (docparser:do-nodes (node package)
-          ;; (push (docparser:node-name node)
+        (dp:do-nodes (node package)
           (push node
                 (gethash (class-name (class-of node))
                          package-hash)))
@@ -44,8 +45,8 @@
         ;; Sort symbol name list
         (loop :for value :being :the :hash-values :of package-hash
               :do (sort value (lambda (node1 node2)
-                                (string-lessp (docparser:node-name node1)
-                                              (docparser:node-name node2)))))
+                                (string-lessp (dp:node-name node1)
+                                              (dp:node-name node2)))))
         (setf (gethash package *symbols*) package-hash))))
 
 (defun generate-html (path)
@@ -76,42 +77,82 @@
                  :description (asdf:system-description *asdf-system*)
                  :url (asdf:system-homepage *asdf-system*)
                  :body (generate-html-index-body)))
-  ;; {(generate-list
-  ;;   (do-package-hashes
-  ;;     (list (format nil "~(~a~)" (docparser:package-index-name package))
-  ;;           (do-node-lists package-hash
-  ;;             <span>{(format nil "~(~a~)" node-type)}</span>))))}
+;                 :body (generate-html-index-body)))
 
 (defun generate-html-index-body ()
   "Generates the body content for the index page."
-    <nav>
+  <div>
+  {(html-hero)}
+  {(html-sidebar)}
+  {(lsx:make-danger-element :element (html-readme))}
+  {(html-main)}
+  </div>)
+
+(defun html-hero ()
+  <header>
+  <h1>{(format nil "~a" *system-name*)}</h1>
+  <p>{(asdf:system-description *asdf-system*)}</p>
+  </header>)
+
+(defun html-sidebar ()
+  <aside>
+  <nav>
+      <h3>{(format nil "~a" *system-name*)}</h3>
       <ul>
-        {(generate-line-list
+        {(generate-list
           :child-list? t
           :elements (do-package-hashes
-            (list (docparser:package-index-name package)
-                  (generate-line-list
+            (list (dp:package-index-name package)
+                  (generate-list
                    :child-list? t
+                   :element-format "~:(~a~)"
                    :elements (do-node-lists package-hash
-                               (list (format nil "~(~a~)" node-type)
-;                                     (generate-line-list
-;                                      :child-list? nil
-;                                      :elements node-list)))))))
-                                  (mapcar (lambda (node) <li>{(format nil "~(~a~)" node)}</li>)
-                                          node-list)))))))}
-;;                                  (mapcar (lambda (node) <li>{(format nil "~(~a~)" (docparser:node-name node))}</li>)
-;;                                          node-list)))))))}
+                               (list (get-node-type-string node-type :plural? t)
+                                     (generate-list
+                                      :child-list? nil
+                                      :elements (mapcar (lambda (node) (dp:node-name node))
+                                                        node-list))))))))}
       </ul>
-  </nav>)
+  </nav>
+  </aside>)
 
-(defun generate-line-list (&key elements (child-list? nil) (element-format "~(~a~)"))
+(defun html-readme ()
+  (let* ((system-dir (pathname-directory
+                     (nth 2 (multiple-value-list
+                             (asdf:locate-system *asdf-system*)))))
+         (files (directory (make-pathname :directory system-dir
+                                          :name :wild
+                                          :type :wild))))
+    (loop :for fp :in files
+          :when (string-equal "readme"
+                              (format nil "~(~a~)" (pathname-name fp)))
+            :do (return-from html-readme (read-markdown fp)))))
+
+(defun read-markdown (filepath)
+  (markdown.cl:parse-file filepath))
+
+(defun html-main ()
+  <main>
+  And here goes the main content
+  </main>)
+
+(defun generate-list (&key elements (child-list? nil) (element-format "~(~a~)"))
   "Generate a list with `elements' and surrounds it with a <li> tag with `title'.
 The type can be either :ul or :ol."
   (if child-list? 
       (mapcar (lambda (e) <li>{(format nil element-format (car e))} <ul>{(cdr e)}</ul></li>)
               elements)
-      (mapcar (lambda (e) <li>{e}</li>)
+      (mapcar (lambda (e) <li>{(format nil element-format e)}</li>)
               elements)))
+
+(defun get-node-type-string (node-type &key (plural? nil))
+  (case node-type
+    (dp:variable-node (if plural? "variables" "variable"))
+    (dp:class-node    (if plural? "classes"   "class"))
+    (dp:method-node   (if plural? "methods"   "method"))
+    (dp:macro-node    (if plural? "macros"    "macro"))
+    (dp:function-node (if plural? "functions" "function"))
+    (otherwise (format nil "~(~a~)" node-type))))
 
 (defmacro do-package-hashes (&body body)
   "Iterates through the package hashes in `*index*'"
@@ -123,11 +164,3 @@ The type can be either :ul or :ol."
   `(loop :for node-type :being :the :hash-keys :of ,package-hash
            :using (:hash-value node-list)
          :collect (progn ,@body)))
-
-(loop :for key :being :the :hash-keys :of *symbols*
-        :using (hash-value value)
-        :do (format t "~&The value associated with the key ~S is ~S~%" key value)
-      :do (loop :for k2 :being :the hash-keys :of value
-                  :using (hash-value v2)
-                :do (format t "Key is ~S, value is ~S~%" k2 v2)))
-

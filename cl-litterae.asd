@@ -12,7 +12,9 @@
   :components ((:module "source"
                 :components
                 ((:file "package")
+                 (:file "string")
                  (:file "main")))
+               
                (:module "source/templates"
                 :components
                 ((:file "index"))))
