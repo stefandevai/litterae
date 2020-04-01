@@ -1,5 +1,6 @@
 (in-package :litterae)
 
+;; Enable lsx syntax in compile time
 (eval-when (:compile-toplevel)
   (lsx:enable-lsx-syntax))
 
@@ -21,7 +22,9 @@
     {(and (has-attr? description) <meta name="og:description" content={description} />)}
     
     {(and (has-attr? url) <link href={url} rel="canonical" />)}
-  </head>)
+    </head>
+
+    :documentation "Holds the structure for a good performing SEO head.")
 
 (lsx:deftemplate index-template ()
   ((title :initform nil)
@@ -37,3 +40,4 @@
     {body}
   </body>
 </html>))
+

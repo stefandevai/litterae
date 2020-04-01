@@ -6,6 +6,3 @@
   (:use #:cl #:lsx)
   (:export #:g
            #:generate))
-
-;; (eval-when (:compile-toplevel)
-;;   (lsx:enable-lsx-syntax))
