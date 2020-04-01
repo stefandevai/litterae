@@ -2,7 +2,7 @@
 ;;;; main.lisp                                                                                  ;;;;
 ;;;; ========================================================================================== ;;;;
 
-(in-package #:cl-litterae/tests)
+(in-package #:litterae/tests)
 
 (deftest dummy-test
   (testing "dummy"

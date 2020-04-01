@@ -2,7 +2,7 @@
 ;;;; cl-litterae.asd                                                                            ;;;;
 ;;;; ========================================================================================== ;;;;
 
-(asdf:defsystem #:cl-litterae
+(asdf:defsystem #:litterae
   :description "Beautiful documentation generation."
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
@@ -15,14 +15,14 @@
                  (:file "templates/index" :depends-on ("string"))
                  (:file "main" :depends-on ("templates/index")))))
   
-  :in-order-to ((test-op (test-op :cl-litterae/tests))))
+  :in-order-to ((test-op (test-op :litterae/tests))))
 
-(asdf:defsystem #:cl-litterae/tests
-  :description "Test system for cl-litterae"
+(asdf:defsystem #:litterae/tests
+  :description "Test system for Litterae"
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
   :serial t
-  :depends-on (:cl-litterae :rove)
+  :depends-on (:litterae :rove)
   :components ((:module "tests"
                 :components
                 ((:file "package")
