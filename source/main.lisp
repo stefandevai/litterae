@@ -148,10 +148,35 @@ as a HTML string."
   (markdown.cl:parse-file filepath))
 
 (defun html-main ()
-  "Main section with definition and documentation of each symbol in the system."
+  "Returns the sidebar used to navigate through the API."
   <main>
-  And here goes the main content
+      <h2>API Documentation</h2>
+        {(generate-api-section
+          :child-list? t
+          :elements (do-package-hashes (pkg package-hash)
+            (list (docparser:package-index-name pkg)
+                  (generate-api-section
+                   :child-list? t
+                   :element-format "~:(~a~)"
+                   :elements (do-node-lists package-hash
+                               (list (get-node-type-string node-type :plural? t)
+                                     (generate-api-section
+                                      :child-list? nil
+                                      :elements (mapcar (lambda (node) (docparser:node-name node))
+                                                        node-list))))))))}
   </main>)
+
+
+(defun generate-api-section (&key elements (child-list? nil) (element-format "~(~a~)"))
+  "Generates a list with `elements'. If `child-list?' is true, it uses the first element
+of `elements' (car) as the title and the other elements as lines of a new list. If child-list?
+is false, then each element in `elements' will be a list.
+element-format allows to customize how the element will be printed."
+  (if child-list? 
+      (mapcar (lambda (e) <div><h3>{(format nil element-format (car e))}</h3> <p>{(cdr e)}</p></div>)
+              elements)
+      (mapcar (lambda (e) <p>{(format nil element-format e)}</p>)
+              elements)))
 
 (defun generate-list (&key elements (child-list? nil) (element-format "~(~a~)"))
   "Generates a list with `elements'. If `child-list?' is true, it uses the first element

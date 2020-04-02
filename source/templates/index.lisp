@@ -22,9 +22,7 @@
     {(and (has-attr? description) <meta name="og:description" content={description} />)}
     
     {(and (has-attr? url) <link href={url} rel="canonical" />)}
-    </head>
-
-    :documentation "Holds the structure for a good performing SEO head.")
+    </head>)
 
 (lsx:deftemplate index-template ()
   ((title :initform nil)
