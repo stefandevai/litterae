@@ -7,7 +7,7 @@
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
   :version "0.0.1"
-  :depends-on (:docparser :lsx :markdown.cl)
+  :depends-on (:docparser :lsx :3bmd :3bmd-ext-code-blocks)
   :components ((:module "source"
                 :components
                 ((:file "package")

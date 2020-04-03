@@ -145,7 +145,11 @@ as a HTML string."
 
 (defun read-markdown (filepath)
   "Reads and parses a markdown file located in `filepath'."
-  (markdown.cl:parse-file filepath))
+  (with-output-to-string (out)
+    (let ((3bmd-code-blocks:*code-blocks* t)
+          (3bmd-code-blocks:*renderer* :pygments))
+
+      (3bmd:parse-and-print-to-stream filepath out))))
 
 (defun html-main ()
   "Returns the sidebar used to navigate through the API."
