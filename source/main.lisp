@@ -35,6 +35,7 @@
 (defun generate (system-name &key (path #P"doc/"))
   "Generates static HTML documentation for a `system-name'."
   (assert (symbolp system-name))
+  (ql:quickload system-name)
   (setf *system-name* system-name)
   (setf *asdf-system* (asdf:find-system *system-name*))
 
@@ -56,26 +57,18 @@
   (docparser:do-packages (pkg *index*)
     ;; Add symbol names entries
     (let ((package-hash (or (gethash pkg *symbols*) (make-hash-table))))
-      (format t "~a~%" pkg)
-      
       (docparser:do-nodes (node pkg)
         (push node
               (gethash (class-name (class-of node))
                        package-hash)))
       
-      (format t "~a~%" package-hash)
-      (loop for value being the hash-values of package-hash
-        do (print (car value)))
-
       ;; Sort symbol name list
       (loop :for value :being :the :hash-values :of package-hash
             :using (:hash-key key)
             :do (setf (gethash key package-hash) (sort value (lambda (node1 node2)
                               (string-lessp (docparser:node-name node1)
                                             (docparser:node-name node2))))))
-      (setf (gethash pkg *symbols*) package-hash)
-      (loop for value being the hash-values of package-hash
-            do (print value)))))
+      (setf (gethash pkg *symbols*) package-hash))))
 
 (defun generate-html (path)
   "Generates HTML for the contents of a parsed system in `*symbols*'."
@@ -160,48 +153,52 @@ as a HTML string."
       (3bmd:parse-and-print-to-stream filepath out))))
 
 (defun html-main ()
-  "Returns the sidebar used to navigate through the API."
+  "Returns the main API documentation content as a lsx object."
   <main>
       <h2>API Documentation</h2>
       {(do-package-hashes (pkg pkg-hash)
          (list
           (lsx:h "h3" '(("" . nil))
-                 (list (docparser:package-index-name pkg)))
+                 (list (format nil "Package: ~a"
+                               (docparser:package-index-name pkg))))
           (do-node-lists pkg-hash
             (list
              (lsx:h "h4" '(("" . nil))
-                   (list (get-node-type-string node-type :plural? t)))
+                    (list (format nil "~@(~a~)"
+                                  (get-node-type-string node-type :plural? t))))
              (mapcar (lambda (node) (gen-html-node-item node pkg))
                      node-list)))))}
     </main>)
 
 (defun gen-html-node-item (node pkg)
+  "Returns each docparser node formated as HTML."
   <div>
   <h5>{(get-lambda-list node pkg)}</h5>
   <p>{(docparser:node-docstring node)}</p>
   </div>)
 
 (defun get-lambda-list (node pkg)
+  "If the node is of type operator-node, the function returns its lambda list.
+Otherwise it returns the node-name as a string."
+  ;; Temporarily binds *package* to the documented package so its prefix
+  ;; doens't show in the lambda list tokens.
   (let ((*package* (find-package (docparser:package-index-name pkg))))
-    (if (string= (class-name (class-of node))
-               "FUNCTION-NODE")
-        
-        (format nil "~S ~S"
+    (if (typep node 'docparser:operator-node)
+        (format nil "~(~S~) ~a"
                 (docparser:node-name node)
-                (docparser:operator-lambda-list node))
-        
-        (docparser:node-name node))))
+                (format-lambda-list (docparser:operator-lambda-list node)))
+        (format nil "~(~S~)" (docparser:node-name node)))))
 
-(defun generate-api-section (&key elements (child-list? nil) (element-format "~(~a~)"))
-  "Generates a list with `elements'. If `child-list?' is true, it uses the first element
-of `elements' (car) as the title and the other elements as lines of a new list. If child-list?
-is false, then each element in `elements' will be a list.
-element-format allows to customize how the element will be printed."
-  (if child-list? 
-      (mapcar (lambda (e) <div><h3>{(format nil element-format (car e))}</h3> <p>{(cdr e)}</p></div>)
-              elements)
-      (mapcar (lambda (e) <p>{(format nil element-format e)}</p>)
-              elements)))
+(defun format-lambda-list (lst)
+  (assert (listp lst))
+  (format nil "~a"
+   (mapcar
+    (lambda (token)
+      (case (type-of token)
+        (cons (format-lambda-list token)) ; If = list, we call format-lambda-list recursively
+        (pathname (format nil "~S" token)) ; If = pathname, we return it as a string
+        (otherwise (format nil "~(~S~)" token)))) ; Otherwise we return it as a lowercase string
+    lst)))
 
 (defun generate-list (&key elements (child-list? nil) (element-format "~(~a~)"))
   "Generates a list with `elements'. If `child-list?' is true, it uses the first element
