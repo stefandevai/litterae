@@ -119,7 +119,7 @@
   "Returns the sidebar used to navigate through the API."
   <aside>
   <nav class="nav-table-of-contents">
-      <h5>Table of Contents</h5>
+      <h5>Table of Contents ⟶</h5>
       <ul>
         {(generate-list
           :child-list? t

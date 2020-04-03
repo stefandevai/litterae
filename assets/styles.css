@@ -2,6 +2,11 @@
   --menu-height: 60px;
   --nav-width: 22vw;
   --border-color: #cccccc;
+  --highlight-color: tomato;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
 }
 
 .top-menu {
@@ -36,6 +41,12 @@
 	justify-content: center;
 	align-items: center;
   padding-left: var(--nav-width);
+  background-color: var(--highlight-color);
+  color: white;
+}
+
+.hero > h1 {
+  margin-top: var(--menu-height);
 }
 
 .nav-table-of-contents {
@@ -50,6 +61,7 @@
 }
 
 .nav-table-of-contents > h5 {
+  font-size: 1em;
 	margin-bottom: 0;
 	padding: 1em 2em;
   border-bottom: 1px solid var(--border-color);
@@ -73,6 +85,8 @@
 }
 
 main {
+  padding-top: 4em;
+  padding-bottom: 4em;
   padding-left: var(--nav-width);
 }
 
