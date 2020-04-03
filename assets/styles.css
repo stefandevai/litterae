@@ -40,8 +40,9 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-  padding-left: var(--nav-width);
-  background-color: var(--highlight-color);
+  margin-left: var(--nav-width);
+  /*background: var(--highlight-color);*/
+  background: darkorchid;
   color: white;
 }
 
@@ -73,11 +74,15 @@ body {
   margin-bottom: 0;
   margin-left: 0 !important;
   list-style-type: none;
-  font-weight: bold;
+  font-weight: 800;
 }
 
 .nav-table-of-contents > ul > li > ul {
   list-style-type: none;
+}
+
+.nav-table-of-contents > ul > li > ul > li > ul {
+  font-weight: 300;
 }
 
 .nav-table-of-contents ul {
@@ -93,6 +98,10 @@ main {
 main > div.main-content {
   width: 80%;
   margin: 0 auto;
+}
+
+main h2, main h3, main h4, main h5, main h6 {
+  font-weight: 800;
 }
 
 .highlight > pre {
