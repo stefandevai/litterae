@@ -190,6 +190,7 @@ Otherwise it returns the node-name as a string."
         (format nil "~(~S~)" (docparser:node-name node)))))
 
 (defun format-lambda-list (lst)
+  "Formats a lambda list `lst` and returns it as a string."
   (assert (listp lst))
   (format nil "~a"
    (mapcar
@@ -212,6 +213,7 @@ element-format allows to customize how the element will be printed."
               elements)))
 
 (defun get-node-type-string (node-type &key (plural? nil))
+  "Return a string of `node-type' for headers. If `plural' is non nil, it returns its plural version."
   (case node-type
     (docparser:variable-node (if plural? "variables" "variable"))
     (docparser:class-node    (if plural? "classes"   "class"))
