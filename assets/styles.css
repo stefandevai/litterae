@@ -1,0 +1,87 @@
+:root {
+  --menu-height: 60px;
+  --nav-width: 22vw;
+  --border-color: #cccccc;
+}
+
+.top-menu {
+  display: flex;
+	justify-content: space-between;
+  align-items: center;
+  height: var(--menu-height);
+  padding: 0 2em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.top-menu a {
+  font-weight: bold;
+  color: inherit;
+  font-size: 3rem;
+}
+
+.top-menu input {
+  width: inherit;
+  margin-bottom: 0;
+}
+
+.hero {
+  height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  padding-left: var(--nav-width);
+}
+
+.nav-table-of-contents {
+	height: calc(100vh - var(--menu-height));
+  width: var(--nav-width);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: var(--menu-height);
+  background-color: #ffffff;
+	border-right: solid 1px var(--border-color);
+}
+
+.nav-table-of-contents > h5 {
+	margin-bottom: 0;
+	padding: 1em 2em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-table-of-contents > ul {
+  padding: 0.5em 2em;
+  overflow-y: scroll;
+  margin-bottom: 0;
+  margin-left: 0 !important;
+  list-style-type: none;
+  font-weight: bold;
+}
+
+.nav-table-of-contents > ul > li > ul {
+  list-style-type: none;
+}
+
+.nav-table-of-contents ul {
+  margin-left: 2rem;
+}
+
+main {
+  padding-left: var(--nav-width);
+}
+
+main > div.main-content {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.highlight > pre {
+  padding: 2rem;
+  font-size: 0.8em;
+}

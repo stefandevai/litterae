@@ -22,7 +22,19 @@
     {(and (has-attr? description) <meta name="og:description" content={description} />)}
     
     {(and (has-attr? url) <link href={url} rel="canonical" />)}
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,400italic,800,800italic" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./highlight-theme-lovelace.css" />
     </head>)
+
+(lsx:deftag top-menu (&key title)
+  <div class="top-menu">
+    <a href="#">{title}</a>
+    <input type="text" placeholder="Search..." />
+  </div>)
 
 (lsx:deftemplate index-template ()
   ((title :initform nil)
@@ -35,6 +47,7 @@
 <html lang={lang}>
   <seo-head title={title} description={description} url={url} />
   <body>
+    <top-menu title={title} />
     {body}
   </body>
 </html>))

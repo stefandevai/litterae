@@ -96,13 +96,21 @@
   <div>
   {(html-hero)}
   {(html-sidebar)}
+
+  <main>
+  <div class="main-content">
+  <div class="readme">
   {(lsx:make-danger-element :element (html-readme))}
-  {(html-main)}
+  </div>
+  
+  {(html-api-docs)}
+  </div>
+  </main>
   </div>)
 
 (defun html-hero ()
   "Generates the Hero HTML."
-  <header>
+  <header class="hero">
   <h1>{(format nil "~a" *system-name*)}</h1>
   <p>{(asdf:system-description *asdf-system*)}</p>
   </header>)
@@ -110,8 +118,8 @@
 (defun html-sidebar ()
   "Returns the sidebar used to navigate through the API."
   <aside>
-  <nav>
-      <h3>{(format nil "~a" *system-name*)}</h3>
+  <nav class="nav-table-of-contents">
+      <h5>Table of Contents</h5>
       <ul>
         {(generate-list
           :child-list? t
@@ -152,9 +160,9 @@ as a HTML string."
 
       (3bmd:parse-and-print-to-stream filepath out))))
 
-(defun html-main ()
+(defun html-api-docs ()
   "Returns the main API documentation content as a lsx object."
-  <main>
+  <div class="api-docs">
       <h2>API Documentation</h2>
       {(do-package-hashes (pkg pkg-hash)
          (list
@@ -168,7 +176,7 @@ as a HTML string."
                                   (get-node-type-string node-type :plural? t))))
              (mapcar (lambda (node) (gen-html-node-item node pkg))
                      node-list)))))}
-    </main>)
+    </div>)
 
 (defun gen-html-node-item (node pkg)
   "Returns each docparser node formated as HTML."

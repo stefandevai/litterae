@@ -10,8 +10,7 @@
   :depends-on (:docparser
                :lsx
                :3bmd
-               :3bmd-ext-code-blocks
-               :swank)
+               :3bmd-ext-code-blocks)
   
   :components ((:module "source"
                 :components
