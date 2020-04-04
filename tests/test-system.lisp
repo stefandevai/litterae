@@ -29,11 +29,11 @@
   "Docstring for func2."
   (format nil "~a~a~%" arg1 arg2))
 
-(defun func3 (arg1 arg2)
+(defun func4 (arg1 arg2)
   "Docstring for func3."
   (format nil "~a~a~%" arg1 arg2))
 
-(defun func4 (arg1 arg2)
+(defun func3 (arg1 arg2)
   "Docstring for func3."
   (format nil "~a~a~%" arg1 arg2))
 
