@@ -2,7 +2,7 @@
 
 (load (merge-pathnames ".quicklisp/setup.lisp" (user-homedir-pathname)))
 (ql:quickload :rove)
-(ql:quickload :litterae)
+(ql:quickload :litterae/tests)
 
-(asdf:test-system :litterae)
+(rove:run :litterae/tests)
 

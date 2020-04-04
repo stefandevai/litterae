@@ -17,18 +17,15 @@
                 ((:file "package")
                  (:file "string" :depends-on ("package"))
                  (:file "templates/index" :depends-on ("string"))
-                 (:file "main" :depends-on ("templates/index")))))
-  
-  :in-order-to ((test-op (test-op :litterae/tests))))
+                 (:file "main" :depends-on ("templates/index"))))))
 
 (asdf:defsystem #:litterae/tests
   :description "Test system for Litterae"
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
   :serial t
-  :depends-on (:litterae :rove)
+  :depends-on (:litterae :litterae-test-system :rove)
   :components ((:module "tests"
                 :components
                 ((:file "package")
-                 (:file "main"))))
-  :perform (asdf:test-op (op c) (uiop:symbol-call :rove '#:run c)))
+                 (:file "main")))))
