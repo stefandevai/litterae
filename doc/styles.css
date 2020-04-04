@@ -90,14 +90,18 @@ body {
 }
 
 main {
-  padding-top: 4em;
-  padding-bottom: 4em;
+  padding-top: 2em;
+  padding-bottom: 2em;
   padding-left: var(--nav-width);
 }
 
 main > div.main-content {
   width: 80%;
   margin: 0 auto;
+}
+
+main h1 {
+  padding-top: 1em;
 }
 
 main h2, main h3, main h4, main h5, main h6 {

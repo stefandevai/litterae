@@ -167,7 +167,7 @@ as a HTML string."
 (defun html-api-docs ()
   "Returns the main API documentation content as a lsx object."
   <div class="api-docs">
-      <h2>API Documentation</h2>
+      <h1>API Documentation</h1>
       {(do-package-hashes (pkg pkg-hash)
          (list
           (lsx:h "h3" '(("" . nil))
