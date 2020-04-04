@@ -42,8 +42,7 @@ body {
 	justify-content: center;
 	align-items: center;
   margin-left: var(--nav-width);
-  /*background: var(--highlight-color);*/
-  background: darkorchid;
+  background: var(--highlight-color);
   color: white;
 }
 
@@ -102,6 +101,19 @@ main > div.main-content {
 }
 
 main h2, main h3, main h4, main h5, main h6 {
+  font-weight: 800;
+}
+
+span.lambda-parameters {
+  font-weight: 300;
+}
+
+.symbol,.keyword {
+  font-weight: 800;
+  color: var(--highlight-color);
+}
+
+.parenthesis {
   font-weight: 800;
 }
 
