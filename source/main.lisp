@@ -185,7 +185,7 @@ as a HTML string."
 (defun gen-html-node-item (node pkg)
   "Returns each docparser node formated as HTML."
   <div>
-  <h5>{(get-lambda-list node pkg)}</h5>
+  <h5>{(lsx:make-danger-element :element (get-lambda-list node pkg))}</h5>
   <p>
   {(if *docstrings-as-markdown?*
        (lsx:make-danger-element
@@ -218,14 +218,29 @@ Otherwise it returns the node-name as a string."
 (defun format-lambda-list (lst)
   "Formats a lambda list `lst` and returns it as a string."
   (assert (listp lst))
-  (format nil "~a"
-   (mapcar
-    (lambda (token)
-      (case (type-of token)
-        (cons (format-lambda-list token)) ; If = list, we call format-lambda-list recursively
-        (pathname (format nil "~S" token)) ; If = pathname, we return it as a string
-        (otherwise (format nil "~(~S~)" token)))) ; Otherwise we return it as a lowercase string
-    lst)))
+  (format-lambda-list-html
+   (reduce
+    (lambda (t1 t2) (str:concat t1 " " t2))
+    (mapcar
+     (lambda (token)
+       (let ((token-string 
+               (case (type-of token)
+                 (cons (format-lambda-list token)) ; If = list, we call format-lambda-list recursively
+                 (pathname (format nil "~S" token)) ; If = pathname, we return it as a string
+                 (otherwise (format nil "~(~S~)" token))))) ; Otherwise we return it as a lowercase string
+         (case (char token-string 0)
+           (#\: (str:concat "<span class=\"keyword\">" token-string "</span>"))
+           (#\& (str:concat "<span class=\"symbol\">" token-string "</span>"))
+           (otherwise token-string))))
+     lst))))
+
+(defun format-lambda-list-html (lambda-string)
+  "Returns a lambda list string with proper formated HTML."
+  (str:concat "<span class=\"lambda-parameters\"><span class=\"parenthesis\">(</span> "
+              (str:replace-all "(" "<span class=\"parenthesis\">(</span> "
+                               (str:replace-all ")" " <span class=\"parenthesis\">)</span>"
+                                                lambda-string))
+              " <span class=\"parenthesis\">)</span></span>"))
 
 (defun generate-list (&key elements (child-list? nil) (element-format "~(~a~)"))
   "Generates a list with `elements'. If `child-list?' is true, it uses the first element
