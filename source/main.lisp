@@ -34,21 +34,22 @@
 
 (defun generate (system-name &key (path #P"doc/"))
   "Generates static HTML documentation for a `system-name'."
-  (assert (symbolp system-name))
-  (ql:quickload system-name)
-  (setf *system-name* system-name)
-  (setf *asdf-system* (asdf:find-system *system-name*))
-
-  ;; Create *index* hash and silence output from docparser
-  (with-open-stream (*standard-output* (make-broadcast-stream))
-    (setf *index* (docparser:parse system-name)))
-  
+  (initialize-system-information system-name)
   (build-symbols-hash)
   (generate-html path))
 
 (defun g (system-name &key (path #P"doc/"))
   "Generates static HTML documentation for a `system-name'."
   (generate system-name :path path))
+
+(defun initialize-system-information (system-name)
+  (assert (symbolp system-name))
+  (setf *system-name* system-name)
+  (setf *asdf-system* (asdf:find-system *system-name*))
+;  (setf *index* (docparser:parse system-name))
+  ;; Create *index* hash and silence output from docparser
+  (with-open-stream (*standard-output* (make-broadcast-stream))
+    (setf *index* (docparser:parse system-name))))
 
 (defun build-symbols-hash ()
   "Stores in `*symbols*' a hash of hashes of lists: a hash of package names, which each value contains a hash of class names which, each value contains a list of node names."
