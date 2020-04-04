@@ -183,8 +183,15 @@ as a HTML string."
   "Returns each docparser node formated as HTML."
   <div>
   <h5>{(get-lambda-list node pkg)}</h5>
-  <p>{(docparser:node-docstring node)}</p>
+  <p>{(parse-markdown-docstring (docparser:node-docstring node))}</p>
   </div>)
+
+(defun parse-markdown-docstring (docstring)
+  "Returns a `docstring' in markdown format as a HTML string."
+  (with-output-to-string (out)
+    (let ((3bmd-code-blocks:*code-blocks* t)
+          (3bmd-code-blocks:*renderer* :pygments))
+      (3bmd:parse-string-and-print-to-stream docstring out))))
 
 (defun get-lambda-list (node pkg)
   "If the node is of type operator-node, the function returns its lambda list.

@@ -45,4 +45,13 @@
         (when (equal litterae::node-type 'docparser:function-node)
           (ok (alphabetical-list? litterae::node-list)))))))
 
+(deftest parse-docstring-as-markdown
+  (testing "basic markdown style"
+    (ok (string= (litterae::parse-markdown-docstring "***test***")
+                 (format nil "<p><strong><em>test</em></strong></p>~%")))))
+
+
+
+
+
 
