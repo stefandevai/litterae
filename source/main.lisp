@@ -8,6 +8,9 @@
 (eval-when (:compile-toplevel)
   (lsx:enable-lsx-syntax))
 
+(defparameter *docstrings-as-markdown?* t
+  "If true, docstrings will be parsed as markdown, otherwise it uses the string as it is.")
+
 (defparameter *index* nil
   "Holds raw information about a system provided by docparser library.")
 
@@ -183,8 +186,22 @@ as a HTML string."
   "Returns each docparser node formated as HTML."
   <div>
   <h5>{(get-lambda-list node pkg)}</h5>
-  <p>{(docparser:node-docstring node)}</p>
+  <p>
+  {(if *docstrings-as-markdown?*
+       (lsx:make-danger-element
+        :element (parse-markdown-docstring
+                  (docparser:node-docstring node)))
+       <p>{(docparser:node-docstring node)}</p>)}
+  </p>
   </div>)
+
+(defun parse-markdown-docstring (docstring)
+  "Returns a **docstring** in markdown format as a HTML string."
+  (when docstring 
+    (with-output-to-string (out)
+      (let ((3bmd-code-blocks:*code-blocks* t)
+            (3bmd-code-blocks:*renderer* :pygments))
+        (3bmd:parse-string-and-print-to-stream docstring out)))))
 
 (defun get-lambda-list (node pkg)
   "If the node is of type operator-node, the function returns its lambda list.
@@ -192,7 +209,7 @@ Otherwise it returns the node-name as a string."
   ;; Temporarily binds *package* to the documented package so its prefix
   ;; doens't show in the lambda list tokens.
   (let ((*package* (find-package (docparser:package-index-name pkg))))
-    (if (typep node 'docparser:operator-node)
+    (if (and (typep node 'docparser:operator-node) (docparser:operator-lambda-list node))
         (format nil "~(~S~) ~a"
                 (docparser:node-name node)
                 (format-lambda-list (docparser:operator-lambda-list node)))

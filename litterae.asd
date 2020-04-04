@@ -6,11 +6,12 @@
   :description "Beautiful documentation generation."
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
-  :version "0.1.1"
+  :version "0.1.4"
   :depends-on (:docparser
                :lsx
                :3bmd
-               :3bmd-ext-code-blocks)
+               :3bmd-ext-code-blocks
+               :str)
   
   :components ((:module "source"
                 :components
