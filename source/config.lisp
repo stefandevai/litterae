@@ -28,7 +28,7 @@
     `(multiple-value-bind (,value exists?) (gethash ,keyword ,hash-table)
        (when exists? (setf ,parameter ,value)))))
 
-(defun load-config (filepath)
+(defun load-config (&optional (filepath nil))
   "Loads config contained in **filepath**. If it's nil, searches for a default config file to load."
   (let ((yaml-config (if filepath
                          (yaml:parse filepath)
@@ -47,8 +47,9 @@
       (yaml:parse config-path))))
 
 (defun set-config (config)
-  "Sets configs parameters from **config**, a parsed yaml file."
-  (set-single-config *docstrings-as-markdown?* "docstrings-as-markdown" config))
+  "Sets configs parameters from **config**, a parsed yaml file. Always returns t to indicate that a new config was set."
+  (set-single-config *docstrings-as-markdown?* "docstrings-as-markdown" config)
+  t)
 
 
 
