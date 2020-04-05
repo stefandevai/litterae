@@ -33,7 +33,7 @@
 
   (testing "hashmap is created properly"
     (litterae::do-package-hashes (pkg pkg-hash)
-      (litterae::do-node-lists pkg-hash
+      (litterae::do-node-lists (pkg-hash)
         (when (equal litterae::node-type 'docparser:macro-node)
           (ok (= 2 (length litterae::node-list))))
         (when (equal litterae::node-type 'docparser:function-node)
@@ -41,7 +41,7 @@
   
   (testing "node lists kept in alphabetical order"
     (litterae::do-package-hashes (pkg pkg-hash)
-      (litterae::do-node-lists pkg-hash
+      (litterae::do-node-lists (pkg-hash)
         (when (equal litterae::node-type 'docparser:function-node)
           (ok (alphabetical-list? litterae::node-list)))))))
 
@@ -49,6 +49,14 @@
   (testing "basic markdown style"
     (ok (string= (litterae::parse-markdown-docstring "***test***")
                  (format nil "<p><strong><em>test</em></strong></p>~%")))))
+
+(deftest header-id-generation
+    (testing "generates correct id in hrefs"
+      (ok (string= (lsx:render-object
+                    (litterae::generate-list
+                     :elements '((:id 0 :name A) (:id 1 :name B))) nil)                   
+                   (format nil "~a~%~a~%" "<li><a href=\"#litterae-tests::a-0\">a</a></li>"
+                           "<li><a href=\"#litterae-tests::b-1\">b</a></li>")))))
 
 
 

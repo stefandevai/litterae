@@ -23,15 +23,15 @@
 (defparameter *symbols* nil
   "Structured information about the system's symbols.")
 
-(defmacro do-package-hashes ((pkg package-hash) &body body)
+(defmacro do-package-hashes ((pkg pkg-hash) &body body)
   "Iterates through the package hashes in `*index*'"
   `(loop :for ,pkg :being :the :hash-keys :of *symbols*
-           :using (:hash-value ,package-hash)
+           :using (:hash-value ,pkg-hash)
          :collect (progn ,@body)))
 
-(defmacro do-node-lists (package-hash &body body)
+(defmacro do-node-lists ((pkg-hash) &body body)
   "Iterates through lists of nodes in a `package-hash' contained in  `*index'."
-  `(loop :for node-type :being :the :hash-keys :of ,package-hash
+  `(loop :for node-type :being :the :hash-keys :of ,pkg-hash
            :using (:hash-value node-list)
          :collect (progn ,@body)))
 
@@ -123,24 +123,57 @@
   "Returns the sidebar used to navigate through the API."
   <aside>
   <nav class="nav-table-of-contents">
-      <h5>Table of Contents ⟶</h5>
-      <ul>
-        {(generate-list
-          :child-list? t
-          :elements (do-package-hashes (pkg package-hash)
-            (list (docparser:package-index-name pkg)
-                  (generate-list
-                   :child-list? t
-                   :element-format "~:(~a~)"
-                   :elements (do-node-lists package-hash
-                               (list (get-node-type-string node-type :plural? t)
-                                     (generate-list
+  <h5>Table of Contents ⟶</h5>
+  <ul>
+  {(let ((id 0))
+     (generate-list
+      :child-list? t
+      :elements
+      (do-package-hashes (pkg pkg-hash)
+        (list
+         :name (docparser:package-index-name pkg)
+         :child-list (generate-list
+                      :child-list? t
+                      :element-format "~:(~a~)"
+                      :elements
+                      (do-node-lists (pkg-hash)
+                        (list
+                         :name (get-node-type-string node-type :plural? t)
+                         :child-list (generate-list
                                       :child-list? nil
-                                      :elements (mapcar (lambda (node) (docparser:node-name node))
-                                                        node-list))))))))}
-      </ul>
+                                      :elements
+                                      (mapcar (lambda (node)
+                                                (progn
+                                                  (incf id)
+                                                  (list
+                                                   :id id
+                                                   :name (docparser:node-name node))))
+                                              node-list)))))))))}
+  </ul>
   </nav>
   </aside>)
+
+(defun generate-list (&key elements (child-list? nil) (element-format "~(~a~)"))
+  "Generates a list with `elements'. If `child-list?' is true, it uses the first element
+of `elements' (car) as the title and the other elements as lines of a new list. If child-list?
+is false, then each element in `elements' will be a list.
+element-format allows to customize how the element will be printed."
+  (if child-list? 
+      (mapcar (lambda (e)
+                <li><a href="#">{(format nil element-format (getf e :name))}</a><ul>{(getf e :child-list)}</ul></li>)
+              elements)
+      
+      (mapcar (lambda (e)
+                <li><a href={(str:concat "#" (generate-id e))}>{(format nil element-format (getf e :name))}</a></li>)
+              elements)))
+
+(defun generate-id (element)
+  "Generates an id string for html given an element in the format `(list :id 0 :name some-name)`."
+  (str:replace-all
+   "/" "-"
+   (str:concat (format nil "~(~S~)" (getf element :name))
+               "-"
+               (write-to-string (getf element :id)))))
 
 (defun html-readme ()
   "Searches for a README file in the system's directory and returns it
@@ -167,25 +200,31 @@ as a HTML string."
 (defun html-api-docs ()
   "Returns the main API documentation content as a lsx object."
   <div class="api-docs">
-      <h1>API Documentation</h1>
-      {(do-package-hashes (pkg pkg-hash)
-         (list
-          (lsx:h "h3" '(("" . nil))
-                 (list (format nil "Package: ~a"
-                               (docparser:package-index-name pkg))))
-          (do-node-lists pkg-hash
-            (list
-             (lsx:h "h4" '(("" . nil))
-                    (list (format nil "~@(~a~)"
-                                  (get-node-type-string node-type :plural? t))))
-             (mapcar (lambda (node) (gen-html-node-item node pkg))
-                     node-list)))))}
-    </div>)
+  <h1>API Documentation</h1>
+  {(let ((id 0))
+     (do-package-hashes (pkg pkg-hash)
+       (list
+        (lsx:h "h3" '(("" . nil))
+               (list (format nil "Package: ~a"
+                             (docparser:package-index-name pkg))))
+        (do-node-lists (pkg-hash)
+          (list
+           (lsx:h "h4" '(("" . nil))
+                  (list (format nil "~@(~a~)"
+                                (get-node-type-string node-type :plural? t))))
+           (mapcar (lambda (node)
+                     (progn
+                       (incf id)
+                       (gen-html-node-item node id pkg)))
+                   node-list))))))}
+  </div>)
 
-(defun gen-html-node-item (node pkg)
+(defun gen-html-node-item (node id pkg)
   "Returns each docparser node formated as HTML."
   <div>
-  <h5>{(lsx:make-danger-element :element (get-lambda-list node pkg))}</h5>
+  <h5 id={(generate-id (list :id id :name (docparser:node-name node)))}>
+  {(lsx:make-danger-element :element (get-lambda-list node pkg))}
+  </h5>
   <p>
   {(if *docstrings-as-markdown?*
        (lsx:make-danger-element
@@ -241,17 +280,6 @@ Otherwise it returns the node-name as a string."
                                (str:replace-all ")" " <span class=\"parenthesis\">)</span>"
                                                 lambda-string))
               " <span class=\"parenthesis\">)</span></span>"))
-
-(defun generate-list (&key elements (child-list? nil) (element-format "~(~a~)"))
-  "Generates a list with `elements'. If `child-list?' is true, it uses the first element
-of `elements' (car) as the title and the other elements as lines of a new list. If child-list?
-is false, then each element in `elements' will be a list.
-element-format allows to customize how the element will be printed."
-  (if child-list? 
-      (mapcar (lambda (e) <li>{(format nil element-format (car e))} <ul>{(cdr e)}</ul></li>)
-              elements)
-      (mapcar (lambda (e) <li>{(format nil element-format e)}</li>)
-              elements)))
 
 (defun get-node-type-string (node-type &key (plural? nil))
   "Return a string of `node-type' for headers. If `plural' is non nil, it returns its plural version."
