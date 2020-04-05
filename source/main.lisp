@@ -160,24 +160,20 @@ is false, then each element in `elements' will be a list.
 element-format allows to customize how the element will be printed."
   (if child-list? 
       (mapcar (lambda (e)
-                <li><a href="#">
-                {(format nil element-format (getf e :name))}
-                </a>
-                <ul>{(getf e :child-list)}</ul>
-                </li>)
+                <li><a href="#">{(format nil element-format (getf e :name))}</a><ul>{(getf e :child-list)}</ul></li>)
               elements)
       
       (mapcar (lambda (e)
-                <li><a href={(str:concat "#" (generate-id e))}>
-                {(format nil element-format (getf e :name))}
-                </a></li>)
+                <li><a href={(str:concat "#" (generate-id e))}>{(format nil element-format (getf e :name))}</a></li>)
               elements)))
 
 (defun generate-id (element)
   "Generates an id string for html given an element in the format `(list :id 0 :name some-name)`."
-  (str:concat (format nil "~(~S~)" (getf element :name))
-              "-"
-              (write-to-string (getf element :id))))
+  (str:replace-all
+   "/" "-"
+   (str:concat (format nil "~(~S~)" (getf element :name))
+               "-"
+               (write-to-string (getf element :id)))))
 
 (defun html-readme ()
   "Searches for a README file in the system's directory and returns it
