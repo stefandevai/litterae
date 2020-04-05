@@ -11,7 +11,8 @@
                :lsx
                :3bmd
                :3bmd-ext-code-blocks
-               :str)
+               :str
+               :cl-yaml)
   
   :components ((:module "source"
                 :components

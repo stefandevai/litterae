@@ -35,15 +35,16 @@
            :using (:hash-value node-list)
          :collect (progn ,@body)))
 
-(defun generate (system-name &key (path #P"doc/"))
-  "Generates static HTML documentation for a `system-name'."
+(defun generate (system-name &key (path #P"doc/") (config nil))
+  "Generates static HTML documentation for a **system-name**."
+  (load-config config)
   (initialize-system-information system-name)
   (build-symbols-hash)
   (generate-html path))
 
-(defun g (system-name &key (path #P"doc/"))
+(defun g (system-name &key (path #P"doc/") (config nil))
   "Generates static HTML documentation for a `system-name'."
-  (generate system-name :path path))
+  (generate system-name :path path :config config))
 
 (defun initialize-system-information (system-name)
   (assert (symbolp system-name))
