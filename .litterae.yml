@@ -1,0 +1,4 @@
+docstrings-as-markdown: true
+
+styles:
+  highlight-color: darkorchid

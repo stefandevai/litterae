@@ -17,7 +17,8 @@
   :components ((:module "source"
                 :components
                 ((:file "package")
-                 (:file "string" :depends-on ("package"))
+                 (:file "config" :depends-on ("package"))
+                 (:file "string" :depends-on ("config"))
                  (:file "templates/index" :depends-on ("string"))
                  (:file "main" :depends-on ("templates/index"))))))
 

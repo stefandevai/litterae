@@ -8,21 +8,6 @@
 (eval-when (:compile-toplevel)
   (lsx:enable-lsx-syntax))
 
-(defparameter *docstrings-as-markdown?* t
-  "If true, docstrings will be parsed as markdown, otherwise it uses the string as it is.")
-
-(defparameter *index* nil
-  "Holds raw information about a system provided by docparser library.")
-
-(defparameter *system-name* nil
-  "Holds system's name as symbol.")
-
-(defparameter *asdf-system* nil
-  "Hold's the system's asdf information.")
-
-(defparameter *symbols* nil
-  "Structured information about the system's symbols.")
-
 (defmacro do-package-hashes ((pkg pkg-hash) &body body)
   "Iterates through the package hashes in `*index*'"
   `(loop :for ,pkg :being :the :hash-keys :of *symbols*
@@ -37,8 +22,8 @@
 
 (defun generate (system-name &key (path #P"doc/") (config nil))
   "Generates static HTML documentation for a **system-name**."
-  (load-config config)
   (initialize-system-information system-name)
+  (load-config config)
   (build-symbols-hash)
   (generate-html path))
 
