@@ -58,8 +58,10 @@
                    (format nil "~a~%~a~%" "<li><a href=\"#litterae-tests::a-0\">a</a></li>"
                            "<li><a href=\"#litterae-tests::b-1\">b</a></li>")))))
 
-
-
-
-
+(deftest load-configuration
+  (testing "loads custom configuration"
+    (ok (litterae::load-config))
+    (ok litterae::*docstrings-as-markdown?*)
+    (ok (litterae::load-config #P"tests/test-config.yml"))
+    (ok (null litterae::*docstrings-as-markdown?*))))
 

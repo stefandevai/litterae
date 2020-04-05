@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>cl-latex | Documentation</title>
-    <meta name="description" content="Common Lisp library for LaTeX generation.">
+    <title>litterae-test-system | Documentation</title>
+    <meta name="description" content="Test system for Litterae">
     
-    <meta name="og:title" property="og:title" content="cl-latex | Documentation">
+    <meta name="og:title" property="og:title" content="litterae-test-system | Documentation">
     <meta property="og:type" content="website">
-    <meta name="og:description" content="Common Lisp library for LaTeX generation.">
+    <meta name="og:description" content="Test system for Litterae">
     
-    <link href="https://stefandevai.github.io/cl-latex" rel="canonical">
+    
 
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,400italic,900,900italic">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
@@ -19,264 +19,38 @@
     </head>
   <body>
     <div class="top-menu">
-    <a href="#">cl-latex</a>
+    <a href="#">litterae-test-system</a>
     <input type="text" placeholder="Search...">
   </div>
     <div>
   <header class="hero">
-  <h1>CL-LATEX</h1>
-  <p>Common Lisp library for LaTeX generation.</p>
+  <h1>LITTERAE-TEST-SYSTEM</h1>
+  <p>Test system for Litterae</p>
   </header>
   <aside>
   <nav class="nav-table-of-contents">
   <h5>Table of Contents ⟶</h5>
   <ul>
-  <li><a href="#">
-                tex
-                </a>
-                <ul><li><a href="#">
-                Functions
-                </a>
-                <ul><li><a href="#tex::%-1">
-                %
-                </a></li>
-<li><a href="#tex:author-2">
-                author
-                </a></li>
-<li><a href="#tex:begin-end-3">
-                begin-end
-                </a></li>
-<li><a href="#tex:caption-4">
-                caption
-                </a></li>
-<li><a href="#tex::clean-pdflatex-aux-files-5">
-                clean-pdflatex-aux-files
-                </a></li>
-<li><a href="#tex::concat-6">
-                concat
-                </a></li>
-<li><a href="#tex::concat-as-lines-7">
-                concat-as-lines
-                </a></li>
-<li><a href="#tex::concat-as-string-8">
-                concat-as-string
-                </a></li>
-<li><a href="#tex:date-9">
-                date
-                </a></li>
-<li><a href="#tex:element-10">
-                element
-                </a></li>
-<li><a href="#tex:emph-11">
-                emph
-                </a></li>
-<li><a href="#tex::empty?-12">
-                empty?
-                </a></li>
-<li><a href="#tex:enumerate-13">
-                enumerate
-                </a></li>
-<li><a href="#tex:figure-14">
-                figure
-                </a></li>
-<li><a href="#tex::format-options-15">
-                format-options
-                </a></li>
-<li><a href="#tex::generate-pdf-from-string-16">
-                generate-pdf-from-string
-                </a></li>
-<li><a href="#tex:graphicspath-17">
-                graphicspath
-                </a></li>
-<li><a href="#tex:include-18">
-                include
-                </a></li>
-<li><a href="#tex:includegraphics-19">
-                includegraphics
-                </a></li>
-<li><a href="#tex:includeonly-20">
-                includeonly
-                </a></li>
-<li><a href="#tex:input-21">
-                input
-                </a></li>
-<li><a href="#tex:item-22">
-                item
-                </a></li>
-<li><a href="#tex:itemize-23">
-                itemize
-                </a></li>
-<li><a href="#tex::load-layout-file-24">
-                load-layout-file
-                </a></li>
-<li><a href="#tex:make-latex-25">
-                make-latex
-                </a></li>
-<li><a href="#tex:noindent-26">
-                noindent
-                </a></li>
-<li><a href="#tex::not-empty?-27">
-                not-empty?
-                </a></li>
-<li><a href="#tex:pagestyle-28">
-                pagestyle
-                </a></li>
-<li><a href="#tex::remove-file-29">
-                remove-file
-                </a></li>
-<li><a href="#tex::replace-string-30">
-                replace-string
-                </a></li>
-<li><a href="#tex::save-to-file-31">
-                save-to-file
-                </a></li>
-<li><a href="#tex:section-32">
-                section
-                </a></li>
-<li><a href="#tex:section*-33">
-                section*
-                </a></li>
-<li><a href="#tex:setlength-34">
-                setlength
-                </a></li>
-<li><a href="#tex:subsection-35">
-                subsection
-                </a></li>
-<li><a href="#tex:subsection*-36">
-                subsection*
-                </a></li>
-<li><a href="#tex:subsubsection-37">
-                subsubsection
-                </a></li>
-<li><a href="#tex:subsubsection*-38">
-                subsubsection*
-                </a></li>
-<li><a href="#tex::surround-string-39">
-                surround-string
-                </a></li>
-<li><a href="#tex:textbf-40">
-                textbf
-                </a></li>
-<li><a href="#tex:textit-41">
-                textit
-                </a></li>
-<li><a href="#tex:thanks-42">
-                thanks
-                </a></li>
-<li><a href="#tex:thispagestyle-43">
-                thispagestyle
-                </a></li>
-<li><a href="#tex:title-44">
-                title
-                </a></li>
-<li><a href="#tex:underline-45">
-                underline
-                </a></li>
-<li><a href="#tex:uppercase-46">
-                uppercase
-                </a></li>
-<li><a href="#tex::write-documentclass-47">
-                write-documentclass
-                </a></li>
-<li><a href="#tex::write-packages-48">
-                write-packages
-                </a></li>
-<li><a href="#tex::write-preamble-49">
-                write-preamble
-                </a></li>
-</ul>
-                </li>
-<li><a href="#">
-                Variables
-                </a>
-                <ul><li><a href="#tex::*default-document-layout*-50">
-                *default-document-layout*
-                </a></li>
-<li><a href="#tex::*document-classes*-51">
-                *document-classes*
-                </a></li>
-<li><a href="#tex::centering-52">
-                centering
-                </a></li>
-<li><a href="#tex::columnsep-53">
-                columnsep
-                </a></li>
-<li><a href="#tex::columnwidth-54">
-                columnwidth
-                </a></li>
-<li><a href="#tex::ldots-55">
-                ldots
-                </a></li>
-<li><a href="#tex::linebreak-56">
-                linebreak
-                </a></li>
-<li><a href="#tex::linewidth-57">
-                linewidth
-                </a></li>
-<li><a href="#tex::maketitle-58">
-                maketitle
-                </a></li>
-<li><a href="#tex::newline-59">
-                newline
-                </a></li>
-<li><a href="#tex::newpage-60">
-                newpage
-                </a></li>
-<li><a href="#tex::paperheight-61">
-                paperheight
-                </a></li>
-<li><a href="#tex::paperwidth-62">
-                paperwidth
-                </a></li>
-<li><a href="#tex::tableofcontents-63">
-                tableofcontents
-                </a></li>
-<li><a href="#tex::textheight-64">
-                textheight
-                </a></li>
-<li><a href="#tex::textwidth-65">
-                textwidth
-                </a></li>
-<li><a href="#tex::unitleght-66">
-                unitleght
-                </a></li>
-</ul>
-                </li>
-<li><a href="#">
-                Classes
-                </a>
-                <ul><li><a href="#tex::latex-document-67">
-                latex-document
-                </a></li>
-</ul>
-                </li>
-<li><a href="#">
-                Methods
-                </a>
-                <ul><li><a href="#tex::generate-pdf-68">
-                generate-pdf
-                </a></li>
-<li><a href="#tex::insert-body-69">
-                insert-body
-                </a></li>
-<li><a href="#tex:to-string-70">
-                to-string
-                </a></li>
-</ul>
-                </li>
-<li><a href="#">
-                Macros
-                </a>
-                <ul><li><a href="#tex:latex-71">
-                latex
-                </a></li>
-<li><a href="#tex::multiple-value-last-72">
-                multiple-value-last
-                </a></li>
-</ul>
-                </li>
-</ul>
-                </li>
+  <li><a href="#">litterae-test-system</a><ul><li><a href="#">Variables</a><ul><li><a href="#litterae-test-system::par1-1">par1</a></li>
+<li><a href="#litterae-test-system::par2-2">par2</a></li>
+<li><a href="#litterae-test-system::par3-3">par3</a></li>
+<li><a href="#litterae-test-system::par4-4">par4</a></li>
+<li><a href="#litterae-test-system::var1-5">var1</a></li>
+<li><a href="#litterae-test-system::var2-6">var2</a></li>
+<li><a href="#litterae-test-system::var3-7">var3</a></li>
+<li><a href="#litterae-test-system::var4-8">var4</a></li>
+</ul></li>
+<li><a href="#">Functions</a><ul><li><a href="#litterae-test-system::func1-9">func1</a></li>
+<li><a href="#litterae-test-system::func2-10">func2</a></li>
+<li><a href="#litterae-test-system::func3-11">func3</a></li>
+<li><a href="#litterae-test-system::func4-12">func4</a></li>
+<li><a href="#litterae-test-system::func5-13">func5</a></li>
+<li><a href="#litterae-test-system::func6-14">func6</a></li>
+</ul></li>
+<li><a href="#">Macros</a><ul><li><a href="#litterae-test-system::macro1-15">macro1</a></li>
+<li><a href="#litterae-test-system::macro2-16">macro2</a></li>
+</ul></li>
+</ul></li>
 
   </ul>
   </nav>
@@ -285,716 +59,161 @@
   <main>
   <div class="main-content">
   <div class="readme">
-  <h1>CL-LATEX</h1>
+  <h1>Litterae</h1>
 
-<p>Common Lisp library for LaTeX generation.</p>
+<p>Documentation generator</p>
 
-<h2>Getting Started</h2>
-
-<h3>Usage example</h3>
-
-<h4>Directly generate a LaTeX string</h4>
-
-<p>In this first example we use a macro to directly have a LaTeX string output.</p><div class="highlight"><pre><span></span><span class="p">(</span><span class="nv">latex</span> <span class="ss">:body</span> <span class="p">(</span><span class="nv">begin-end</span> <span class="s">&quot;document&quot;</span>
-                        <span class="p">(</span><span class="nv">section</span> <span class="s">&quot;Section title&quot;</span><span class="p">)</span>
-                        <span class="p">(</span><span class="nv">emph</span> <span class="s">&quot;A short emphasized paragraph.&quot;</span><span class="p">)))</span>
-                            
-<span class="c1">;; =&gt; &quot;</span>
-<span class="c1">;;    \\begin{document}</span>
-<span class="c1">;;    \\section{Section title}</span>
-<span class="c1">;;    \\emph{A short emphasized paragraph}</span>
-<span class="c1">;;    \\end{document}</span>
-<span class="c1">;;    &quot;</span>
-</pre></div>
-
-
-<h4>Generate a pdf from a LaTeX document object</h4>
-
-<p>Now, instead of using a macro, we create a <code>latex-document</code> with <code>tex:make-latex</code>. Note the slight different syntax from the first example when defining the body using <code>list</code>.</p><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">latex-document</span> <span class="p">(</span><span class="nv">make-latex</span> <span class="ss">:layout-file</span> <span class="s">&quot;./layout.tex&quot;</span>
-                                  <span class="ss">:body</span> <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="nv">section</span> <span class="s">&quot;Section title&quot;</span><span class="p">)</span>
-                                              <span class="p">(</span><span class="nv">emph</span> <span class="s">&quot;A short emphasized paragraph.&quot;</span><span class="p">)))))</span>
- <span class="p">(</span><span class="nv">generate-pdf</span> <span class="nv">latex-document</span><span class="p">))</span>
-</pre></div>
-
-
-<h4>Generate LaTeX using another LaTeX file as layout</h4>
-
-<p>In a file called <code>layout.tex</code> write some LaTeX defaults and add <code>%cl-latex%</code> where you want the generated LaTeX to be inserted:</p><div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="na">[12pt]</span><span class="nb">{</span>article<span class="nb">}</span>
-<span class="k">\usepackage</span><span class="na">[T1]</span><span class="nb">{</span>fontenc<span class="nb">}</span>
-
-<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
-
-<span class="c">%cl-latex%</span>
-
-<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
-</pre></div>
-
-
-<p>Then with the library:</p><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">latex-document</span> <span class="p">(</span><span class="nv">make-latex</span> <span class="ss">:layout-file</span> <span class="s">&quot;./layout.tex&quot;</span>
-                                  <span class="ss">:body</span> <span class="p">(</span><span class="nb">list</span> <span class="p">(</span><span class="nv">section</span> <span class="s">&quot;Section title&quot;</span><span class="p">)</span>
-                                              <span class="p">(</span><span class="nv">emph</span> <span class="s">&quot;A short emphasized paragraph.&quot;</span><span class="p">)))))</span>
- <span class="p">(</span><span class="nv">to-string</span> <span class="nv">latex-document</span><span class="p">))</span>
- 
-<span class="c1">;; =&gt; &quot;\\documentclass[12pt]{article}</span>
-<span class="c1">;;     \\usepackage[T1]{fontenc}</span>
-<span class="c1">;;</span>
-<span class="c1">;;    \\begin{document}</span>
-<span class="c1">;;</span>
-<span class="c1">;;    \\section{Section title}</span>
-<span class="c1">;;    \\emph{A short emphasized paragraph}</span>
-<span class="c1">;;</span>
-<span class="c1">;;    \\end{document}</span>
-<span class="c1">;;    &quot;</span>
-</pre></div>
-
-
-<h3>Prerequisites</h3>
-
-<p>There are no dependencies for the core LaTeX generation.
-If you want to generate pdfs, however, you need either <a href="https://mg.readthedocs.io/latexmk.html" >latexmk</a> or <a href="https://linux.die.net/man/1/pdflatex" >pdflatex</a>.</p>
-
-<h3>Installing</h3>
-
-<p>On UNIX:</p><div class="highlight"><pre><span></span>$ git clone https://github.com/stefandevai/cl-latex ~/common-lisp/
-</pre></div>
-
-
-<h3>Running the tests</h3>
-
-<p>The tests are located in <code>./tests</code>. There are several unit and integration tests at the moment. You can use them as a reference on how to use the library.</p><div class="highlight"><pre><span></span>$ ./run-tests.lisp
-</pre></div>
-
-
-<h2>Author</h2>
-
-<ul>
-<li><strong>Stefan Devai</strong> - <a href="https://github.com/stefandevai" >stefandevai</a></li>
-</ul>
-
-<h2>License</h2>
-
-<p>This project is licensed under the MIT License - see the <a href="LICENSE.md" >LICENSE.md</a> file for details</p>
-
-<h2>Acknowledgments</h2>
-
-<p>This library was created as a support for <a href="https://github.com/stefandevai/ibidem" >ibidem</a>, a CLI tool that makes it easier to write academic papers with citations.</p>
+<p><em>Work in progress</em></p>
 
   </div>
   
   <div class="api-docs">
   <h1>API Documentation</h1>
-  <h3>Package: TEX</h3>
-<h4>Functions</h4>
-<div>
-  <h5 id="tex::%-1">
-  % <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:author-2">
-  author <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:begin-end-3">
-  begin-end <span class="lambda-parameters"><span class="parenthesis">(</span> args <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:caption-4">
-  caption <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::clean-pdflatex-aux-files-5">
-  clean-pdflatex-aux-files <span class="lambda-parameters"><span class="parenthesis">(</span> filename <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::concat-6">
-  concat <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> strings <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Concatenate `strings' into a single string.</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex::concat-as-lines-7">
-  concat-as-lines <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> args <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Concatenate `args' separating each other with a newline character.</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex::concat-as-string-8">
-  concat-as-string <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> args <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Concatenate <code>args' as strings into a single string. If any of the
-   arguments is not a string, it is converted with</code>write-to-string'.</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex:date-9">
-  date <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:element-10">
-  element <span class="lambda-parameters"><span class="parenthesis">(</span> args <span class="symbol">&rest</span> rest <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:emph-11">
-  emph <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::empty?-12">
-  empty? <span class="lambda-parameters"><span class="parenthesis">(</span> string <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Return t if `string' is empty or nil, return nil otherwise.</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex:enumerate-13">
-  enumerate <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> list-items <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:figure-14">
-  figure <span class="lambda-parameters"><span class="parenthesis">(</span> position <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::format-options-15">
-  format-options <span class="lambda-parameters"><span class="parenthesis">(</span> options <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Receive a list of key and values, and return a string with formated options
-  for LaTeX.</p>
-
-<p>Example:
-  (format-options '(width 2 height 4))
-  ;; =&gt; &quot;[width=2,height=4]&quot;</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex::generate-pdf-from-string-16">
-  generate-pdf-from-string <span class="lambda-parameters"><span class="parenthesis">(</span> filename string <span class="symbol">&key</span> generator <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:graphicspath-17">
-  graphicspath <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> paths <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Return a graphicspath element with provided `paths' list.</p>
-
-<p>Exemples:
-  (graphicspath &quot;path/to/images/&quot;)
-  ;; =&gt; &quot;\graphicspath{{path/to/images}}&quot;
-  (graphicspath &quot;./path-1/&quot; &quot;./path-2/&quot;)
-  ;; =&gt; &quot;\graphicspath{{path-1}{./path-2}}&quot;</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex:include-18">
-  include <span class="lambda-parameters"><span class="parenthesis">(</span> filename <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:includegraphics-19">
-  includegraphics <span class="lambda-parameters"><span class="parenthesis">(</span> graphics-name <span class="symbol">&key</span> width height scale angle <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:includeonly-20">
-  includeonly <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> files <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:input-21">
-  input <span class="lambda-parameters"><span class="parenthesis">(</span> filename <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:item-22">
-  item <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:itemize-23">
-  itemize <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> list-items <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::load-layout-file-24">
-  load-layout-file <span class="lambda-parameters"><span class="parenthesis">(</span> file-path <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Load a LaTeX layout file from `file-path'.</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex:make-latex-25">
-  make-latex <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&key</span> <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis">(</span> </span> layout nil <span class="parenthesis"> <span class="parenthesis">)</span></span></span> <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis">(</span> </span> layout-file nil <span class="parenthesis"> <span class="parenthesis">)</span></span></span> <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis">(</span> </span> documentclass <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis"><span class="parenthesis">(</span> </span> </span> quote <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis"><span class="parenthesis"><span class="parenthesis">(</span> </span> </span> </span> <span class="keyword">:class</span> <span class="keyword">:article</span> <span class="parenthesis"> <span class="parenthesis"> <span class="parenthesis"> <span class="parenthesis">)</span></span></span></span></span> <span class="parenthesis"> <span class="parenthesis"> <span class="parenthesis">)</span></span></span></span> <span class="parenthesis"> <span class="parenthesis">)</span></span></span> <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis">(</span> </span> packages nil <span class="parenthesis"> <span class="parenthesis">)</span></span></span> <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis">(</span> </span> preamble nil <span class="parenthesis"> <span class="parenthesis">)</span></span></span> <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis">(</span> </span> body nil <span class="parenthesis"> <span class="parenthesis">)</span></span></span> <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Return a `latex-document' instance with provided params.</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex:noindent-26">
-  noindent <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::not-empty?-27">
-  not-empty? <span class="lambda-parameters"><span class="parenthesis">(</span> string <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Return t if `string' is not empty, return nil otherwise.</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex:pagestyle-28">
-  pagestyle <span class="lambda-parameters"><span class="parenthesis">(</span> style <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::remove-file-29">
-  remove-file <span class="lambda-parameters"><span class="parenthesis">(</span> filename <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::replace-string-30">
-  replace-string <span class="lambda-parameters"><span class="parenthesis">(</span> old new string <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Return a string with <code>old' replaced by</code>new' in `string'.</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex::save-to-file-31">
-  save-to-file <span class="lambda-parameters"><span class="parenthesis">(</span> filename string <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:section-32">
-  section <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:section*-33">
-  section* <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:setlength-34">
-  setlength <span class="lambda-parameters"><span class="parenthesis">(</span> item amount <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:subsection-35">
-  subsection <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:subsection*-36">
-  subsection* <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:subsubsection-37">
-  subsubsection <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:subsubsection*-38">
-  subsubsection* <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::surround-string-39">
-  surround-string <span class="lambda-parameters"><span class="parenthesis">(</span> str1 str2 <span class="symbol">&rest</span> rest <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Surround strings from <code>rest' with</code>str1' and `str2'.</p>
-
-  </p>
-  </div>
-<div>
-  <h5 id="tex:textbf-40">
-  textbf <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:textit-41">
-  textit <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:thanks-42">
-  thanks <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:thispagestyle-43">
-  thispagestyle <span class="lambda-parameters"><span class="parenthesis">(</span> style <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:title-44">
-  title <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:underline-45">
-  underline <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex:uppercase-46">
-  uppercase <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&rest</span> elements <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::write-documentclass-47">
-  write-documentclass <span class="lambda-parameters"><span class="parenthesis">(</span> documentclass <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::write-packages-48">
-  write-packages <span class="lambda-parameters"><span class="parenthesis">(</span> packages <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::write-preamble-49">
-  write-preamble <span class="lambda-parameters"><span class="parenthesis">(</span> preamble <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  
-  </p>
-  </div>
+  <h3>Package: LITTERAE-TEST-SYSTEM</h3>
 <h4>Variables</h4>
 <div>
-  <h5 id="tex::*default-document-layout*-50">
-  *default-document-layout*
+  <h5 id="litterae-test-system::par1-1">
+  par1
   </h5>
   <p>
-  <p>Default LaTeX layout used if no layout was provided by the user.</p>
+  <p>Docstring for par1</p>
 
   </p>
   </div>
 <div>
-  <h5 id="tex::*document-classes*-51">
-  *document-classes*
+  <h5 id="litterae-test-system::par2-2">
+  par2
   </h5>
   <p>
-  <p>Generic document classes that come builtin with LaTeX.</p>
+  <p>Docstring for par1</p>
 
   </p>
   </div>
 <div>
-  <h5 id="tex::centering-52">
-  centering
+  <h5 id="litterae-test-system::par3-3">
+  par3
   </h5>
   <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::columnsep-53">
-  columnsep
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::columnwidth-54">
-  columnwidth
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::ldots-55">
-  ldots
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::linebreak-56">
-  linebreak
-  </h5>
-  <p>
-  <p>Default linebreak sintax in Latex</p>
+  <p>Docstring for par3</p>
 
   </p>
   </div>
 <div>
-  <h5 id="tex::linewidth-57">
-  linewidth
+  <h5 id="litterae-test-system::par4-4">
+  par4
   </h5>
   <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::maketitle-58">
-  maketitle
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::newline-59">
-  newline
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::newpage-60">
-  newpage
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::paperheight-61">
-  paperheight
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::paperwidth-62">
-  paperwidth
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::tableofcontents-63">
-  tableofcontents
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::textheight-64">
-  textheight
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::textwidth-65">
-  textwidth
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<div>
-  <h5 id="tex::unitleght-66">
-  unitleght
-  </h5>
-  <p>
-  
-  </p>
-  </div>
-<h4>Classes</h4>
-<div>
-  <h5 id="tex::latex-document-67">
-  latex-document
-  </h5>
-  <p>
-  <p>Hold information about a LaTeX document.</p>
-
-  </p>
-  </div>
-<h4>Methods</h4>
-<div>
-  <h5 id="tex::generate-pdf-68">
-  generate-pdf <span class="lambda-parameters"><span class="parenthesis">(</span> filename <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis">(</span> </span> latex-doc latex-document <span class="parenthesis"> <span class="parenthesis">)</span></span></span> <span class="parenthesis">)</span></span>
-  </h5>
-  <p>
-  <p>Uses latexmk or pdflatex to generate a pdf from the object.</p>
+  <p>Docstring for par4</p>
 
   </p>
   </div>
 <div>
-  <h5 id="tex::insert-body-69">
-  insert-body <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis">(</span> </span> latex-doc latex-document <span class="parenthesis"> <span class="parenthesis">)</span></span></span> <span class="parenthesis">)</span></span>
+  <h5 id="litterae-test-system::var1-5">
+  var1
   </h5>
   <p>
-  <p>Insert <code>latex-doc''s body in the layout.
-   The point of insertion in the layout is defined by the string</code>%cl-latex%'.</p>
+  <p>Docstring for var1.</p>
 
   </p>
   </div>
 <div>
-  <h5 id="tex:to-string-70">
-  to-string <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis">(</span> </span> latex-doc latex-document <span class="parenthesis"> <span class="parenthesis">)</span></span></span> <span class="parenthesis">)</span></span>
+  <h5 id="litterae-test-system::var2-6">
+  var2
   </h5>
   <p>
-  <p>Return a `latex-document' formated as a LaTeX document string.</p>
+  <p>Docstring for var2.</p>
+
+  </p>
+  </div>
+<div>
+  <h5 id="litterae-test-system::var3-7">
+  var3
+  </h5>
+  <p>
+  <p>Docstring for var3.</p>
+
+  </p>
+  </div>
+<div>
+  <h5 id="litterae-test-system::var4-8">
+  var4
+  </h5>
+  <p>
+  <p>Docstring for var4.</p>
+
+  </p>
+  </div>
+<h4>Functions</h4>
+<div>
+  <h5 id="litterae-test-system::func1-9">
+  func1 <span class="lambda-parameters"><span class="parenthesis">(</span> arg1 arg2 <span class="parenthesis">)</span></span>
+  </h5>
+  <p>
+  <p>Docstring for func1.</p>
+
+  </p>
+  </div>
+<div>
+  <h5 id="litterae-test-system::func2-10">
+  func2 <span class="lambda-parameters"><span class="parenthesis">(</span> arg1 arg2 <span class="parenthesis">)</span></span>
+  </h5>
+  <p>
+  <p>Docstring for func2.</p>
+
+  </p>
+  </div>
+<div>
+  <h5 id="litterae-test-system::func3-11">
+  func3 <span class="lambda-parameters"><span class="parenthesis">(</span> arg1 arg2 <span class="parenthesis">)</span></span>
+  </h5>
+  <p>
+  <p>Docstring for func3.</p>
+
+  </p>
+  </div>
+<div>
+  <h5 id="litterae-test-system::func4-12">
+  func4 <span class="lambda-parameters"><span class="parenthesis">(</span> arg1 arg2 <span class="parenthesis">)</span></span>
+  </h5>
+  <p>
+  <p>Docstring for func3.</p>
+
+  </p>
+  </div>
+<div>
+  <h5 id="litterae-test-system::func5-13">
+  func5 <span class="lambda-parameters"><span class="parenthesis">(</span> arg1 arg2 <span class="parenthesis">)</span></span>
+  </h5>
+  <p>
+  <p>Docstring for func5.</p>
+
+  </p>
+  </div>
+<div>
+  <h5 id="litterae-test-system::func6-14">
+  func6 <span class="lambda-parameters"><span class="parenthesis">(</span> arg1 arg2 <span class="parenthesis">)</span></span>
+  </h5>
+  <p>
+  <p>Docstring for func6.</p>
 
   </p>
   </div>
 <h4>Macros</h4>
 <div>
-  <h5 id="tex:latex-71">
-  latex <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&key</span> documentclass packages preamble body <span class="parenthesis">)</span></span>
+  <h5 id="litterae-test-system::macro1-15">
+  macro1 <span class="lambda-parameters"><span class="parenthesis">(</span> filepath <span class="parenthesis">)</span></span>
   </h5>
   <p>
-  <p>Return a LaTeX document string.</p>
+  <p>Docstring for macro1</p>
 
   </p>
   </div>
 <div>
-  <h5 id="tex::multiple-value-last-72">
-  multiple-value-last <span class="lambda-parameters"><span class="parenthesis">(</span> form <span class="parenthesis">)</span></span>
+  <h5 id="litterae-test-system::macro2-16">
+  macro2 <span class="lambda-parameters"><span class="parenthesis">(</span> <span class="symbol">&key</span> <span class="lambda-parameters"><span class="parenthesis"><span class="parenthesis">(</span> </span> filepath #P"path/to/file" <span class="parenthesis"> <span class="parenthesis">)</span></span></span> <span class="parenthesis">)</span></span>
   </h5>
   <p>
-  <p>Get the last element of a function `fn' with multiple return values.</p>
+  <p>Docstring for macro2</p>
 
   </p>
   </div>

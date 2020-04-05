@@ -6,17 +6,19 @@
   :description "Beautiful documentation generation."
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
-  :version "0.2.1"
+  :version "0.2.2"
   :depends-on (:docparser
                :lsx
                :3bmd
                :3bmd-ext-code-blocks
-               :str)
+               :str
+               :cl-yaml)
   
   :components ((:module "source"
                 :components
                 ((:file "package")
-                 (:file "string" :depends-on ("package"))
+                 (:file "config" :depends-on ("package"))
+                 (:file "string" :depends-on ("config"))
                  (:file "templates/index" :depends-on ("string"))
                  (:file "main" :depends-on ("templates/index"))))))
 
