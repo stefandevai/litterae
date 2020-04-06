@@ -1,5 +1,5 @@
 ;;;; ========================================================================================== ;;;;
-;;;; main.lisp                                                                                  ;;;;
+;;;; unit.lisp                                                                                  ;;;;
 ;;;; ========================================================================================== ;;;;
 
 (in-package #:litterae/tests)
@@ -62,7 +62,6 @@
   (testing "loads custom configuration"
     (ok (litterae::load-config))
     (ok litterae::*docstrings-as-markdown?*)
-    (ok (litterae::load-config #P"tests/test-config.yml"))
+    (ok (litterae::load-config #P"tests/test-data/test-config.yml"))
     (ok (null litterae::*docstrings-as-markdown?*))))
 
-(rove:run-suite *package*)

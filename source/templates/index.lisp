@@ -6,17 +6,17 @@
 
 (defun has-attr? (attr)
   "Return true if the attribute `attr' holds a value, false otherwise."
-  (not-empty? (funcall attr)))
+  (not (str:empty? (funcall attr))))
 
 (lsx:deftag seo-head (&key title
                            (description nil)
                            (url nil))
   <head>
     <meta charset="utf-8" />
-    <title>{(concatenate 'string (funcall title) " |")} Documentation</title>
+    <title>{(str:concat (funcall title) " |")} Documentation</title>
     {(and (has-attr? description) <meta name="description" content={description} />)}
     
-    <meta name="og:title" property="og:title" content={(concat-as-string (funcall title)
+    <meta name="og:title" property="og:title" content={(str:concat (funcall title)
                                                                          " | Documentation")} />
     <meta property="og:type" content="website" />
     {(and (has-attr? description) <meta name="og:description" content={description} />)}
