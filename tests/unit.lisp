@@ -9,9 +9,15 @@
   (let ((string-list (mapcar (lambda (e) (string (docparser:node-name e))) lst)))
     (every #'string-lessp string-list (cdr string-list))))
 
+(defparameter *docparser-package* nil
+  "Holds the test package docparser object.")
+
 (setup
   (litterae::initialize-system-information :litterae-test-system)
-  (litterae::build-symbols-hash))
+  (litterae::build-symbols-hash)
+  (docparser:do-packages (pkg litterae::*index*)
+    (setq *docparser-package* pkg)))
+
 
 (deftest symbol-hash-creation
   (testing "system is loaded properly"
@@ -64,4 +70,24 @@
     (ok litterae::*docstrings-as-markdown?*)
     (ok (litterae::load-config #P"tests/test-data/test-config.yml"))
     (ok (null litterae::*docstrings-as-markdown?*))))
+
+(deftest lambda-lists
+  (testing "signal non lists"
+    (signals (litterae::format-lambda-list #P"test"))
+    (signals (litterae::format-lambda-list 3))
+    (signals (litterae::format-lambda-list "test")))
+
+  (testing "lambda lists generation"
+    (let ((variable-node (elt (docparser:query litterae::*index* :symbol-name :var1) 0))
+          (function-node (elt (docparser:query litterae::*index* :symbol-name :func1) 0)))
+      (ok (string= "var1"
+                   (litterae::get-lambda-list variable-node *docparser-package*)))
+      (ok (string= "func1 <span class=\"lambda-parameters\"><span class=\"parenthesis\">(</span> arg1 arg2 <span class=\"parenthesis\">)</span></span>"
+                   (litterae::get-lambda-list function-node *docparser-package*)))))
+
+  (testing "correct formatting of lambda lists"
+    (ok (string= "<span class=\"lambda-parameters\"><span class=\"parenthesis\">(</span> a <span class=\"keyword\">:b</span> c <span class=\"symbol\">&d</span> e #P\"Path\" <span class=\"parenthesis\">)</span></span>"
+                 (let ((*package* (find-package :litterae/tests)))
+                   (litterae::format-lambda-list '(a :b c &d e #P"Path")))))))
+
 
