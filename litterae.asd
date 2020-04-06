@@ -6,7 +6,7 @@
   :description "Beautiful documentation generation."
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
-  :version "0.2.2"
+  :version "0.2.3"
   :depends-on (:docparser
                :lsx
                :3bmd
@@ -18,8 +18,7 @@
                 :components
                 ((:file "package")
                  (:file "config" :depends-on ("package"))
-                 (:file "string" :depends-on ("config"))
-                 (:file "templates/index" :depends-on ("string"))
+                 (:file "templates/index" :depends-on ("config"))
                  (:file "main" :depends-on ("templates/index"))))))
 
 (asdf:defsystem #:litterae/tests

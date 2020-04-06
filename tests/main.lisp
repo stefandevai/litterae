@@ -65,3 +65,4 @@
     (ok (litterae::load-config #P"tests/test-config.yml"))
     (ok (null litterae::*docstrings-as-markdown?*))))
 
+(rove:run-suite *package*)
