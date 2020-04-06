@@ -25,7 +25,8 @@
   (initialize-system-information system-name)
   (load-config config)
   (build-symbols-hash)
-  (generate-html path))
+  (generate-html path)
+  t)
 
 (defun g (system-name &key (path #P"doc/") (config nil))
   "Generates static HTML documentation for a `system-name'."

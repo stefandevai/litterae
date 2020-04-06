@@ -2,8 +2,7 @@
   :description "Test system for Litterae"
   :author "Stefan Devai <stedevai@gmail.com>"
   :license "MIT"
-  :serial t
-  :components ((:module "tests"
+  :components ((:module "tests/test-data"
                 :components
                 ((:file "test-system")))))
 
