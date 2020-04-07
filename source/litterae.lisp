@@ -102,8 +102,10 @@
 (defun html-hero ()
   "Generates the Hero HTML."
   <header class="hero">
+  <div class="hero-content">
   <h1>{(format nil "~a" *system-name*)}</h1>
   <p>{(asdf:system-description *asdf-system*)}</p>
+  </div>
   </header>)
 
 (defun html-sidebar ()
